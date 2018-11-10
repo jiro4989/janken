@@ -38,7 +38,7 @@
 システムはAmazon Web Service(以降AWS)を使用してクラウドWebアプリとして構築する。
 以下の図にシステム構成を示す。
 
-![システム構成図](system_structure.png)
+![システム構成図](img/system_structure.png)
 
 ### 追加インストールパッケージ
 
