@@ -7,6 +7,11 @@ skinparam {
 start
 
 : シェル起動。引数には rock or paper or scissors を渡す;
+if (ストップファイルが存在する) then (true)
+  : ストップログ出力 ;
+  : exit 0;
+  end
+endif
 if (引数がrockでもpaperでもscissorsでもない) then (true)
   : エラーログ出力 ;
   : exit 1;
