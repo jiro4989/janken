@@ -1,0 +1,42 @@
+@startuml
+
+skinparam {
+  defaultFontName Noto Sans CJK JP Regular
+}
+
+start
+
+: シェル起動。引数には rock or paper or scissors を渡す;
+if (引数がrockでもpaperでもscissorsでもない) then (true)
+  : エラーログ出力 ;
+  : exit 1;
+  end
+endif
+: 起動ログを出力;
+: ロックファイルを削除trapをセット;
+: ロックファイルを生成;
+if (ロックファイルがすでに存在する？) then (true)
+  : スキップログを出力;
+  : exit 0;
+  end
+endif
+: グー、チョキ、パーからランダムに手を生成;
+: go_app {user_hand} {enemy_hand} で起動 ;
+if (どちらかの手が不正) then (true)
+  : エラーログを出力 ;
+  : exit 1;
+  end
+endif
+: 手の勝敗を判定 ;
+: 手と勝敗をHTMLテンプレートに埋め込む ;
+: HTMLテンポラリファイルを生成する ;
+: ファイル移動で{user_hand}.htmlを上書きする ;
+: 正常終了ログを出力 ;
+: Goアプリの正常終了 ;
+: シェル終了ログと処理時間を出力する ;
+: exit 0;
+: trapによりロックファイルを削除;
+
+end
+
+@enduml
