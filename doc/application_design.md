@@ -13,8 +13,6 @@ Webページに表示されるコンテンツを更新するアプリの設計�
 | /var/www/html/hand/paper.html    | http://{ip}/hand/paper.html    | パー   | 勝敗           |
 | /var/www/html/hand/scissors.html | http://{ip}/hand/scissors.html | チョキ | 勝敗           |
 
-コンテンツの内容は下記の通り。
-
 ## アプリ処理概要
 
 前述のコンテンツを生成するためにGoアプリを作成し、Webサーバ上に配置する。
