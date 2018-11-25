@@ -29,7 +29,6 @@ if [ "$ret" -ne 0 ]; then
 fi
 
 enemy_hand=$(shuf -re rock paper scissors | head -n 1)
-info "アプリを起動... user_hand=$user_hand enemy_hand=$enemy_hand"
 /opt/janken/bin/generate_janken_html.sh "$user_hand" "$enemy_hand"
 ret=$?
 if [ "$ret" -ne 0 ]; then
