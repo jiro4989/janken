@@ -4,6 +4,7 @@ start_time=$(date +%N)
 
 source /opt/janken/shell/util.sh
 
+# ログプライオリティ、など引数によって変数を決定する初期化処理
 user_hand=$1
 init "$user_hand"
 ret=$?
@@ -28,6 +29,7 @@ if [ "$ret" -ne 0 ]; then
   exit 0
 fi
 
+# アプリバイナリ起動 (メイン処理)
 enemy_hand=$(shuf -re rock paper scissors | head -n 1)
 /opt/janken/bin/generate_janken_html.sh "$user_hand" "$enemy_hand"
 ret=$?
