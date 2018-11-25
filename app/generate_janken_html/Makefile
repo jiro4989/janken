@@ -1,10 +1,12 @@
-TEMPLATE_PATH := "../template/janken.html"
-
 ifeq ($(ENV),prd)
-  TEMPLATE_PATH := "/opt/janken/template"
+	TEMPLATE_PATH := "/opt/janken/template"
+	DEST_DIR := "/var/www/html/hand"
+	LDFLAGS := -ldflags=" \
+		-X \"main.TEMPLATE_PATH=$(TEMPLATE_PATH)\" \
+		-X \"main.DEST_DIR=$(DEST_DIR)\" \
+		"
 endif
 
-LDFLAGS := -ldflags="-X \"main.TEMPLATE_PATH=$(TEMPLATE_PATH)\""
 bin/generate_janken_html: *.go
 	mkdir -p bin
 	go build -o $@ $(LDFLAGS) .

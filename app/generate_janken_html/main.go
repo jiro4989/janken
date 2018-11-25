@@ -5,14 +5,20 @@ import (
 	"fmt"
 	"html/template"
 	"io"
+	"io/ioutil"
 	"os"
 )
 
 // 環境ごとに異なる
-var TEMPLATE_PATH string
+var (
+	// htmlのテンプレートのパス
+	TEMPLATE_PATH = "../template/janken.html"
+	// HTMLの出力先
+	DEST_DIR = "./html"
+)
 
 func main() {
-	if TEMPLATE_PATH == "" {
+	if TEMPLATE_PATH == "" || DEST_DIR == "" {
 		panic("環境未定義")
 	}
 
@@ -24,17 +30,24 @@ func main() {
 
 	userHand := args[1]
 	enemyHand := args[2]
-	fmt.Println(userHand, enemyHand)
 
 	status := winHand(userHand, enemyHand)
 	html, err := generateHTML(userHand, enemyHand, status, TEMPLATE_PATH)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(html)
-	// html := generateHTML(userHand, enemyHand, judge)
-	// craeteTmpFile
-	// mv tmp to location
+
+	fileName := userHand + ".html"
+	dstFile := fmt.Sprintf("%s/%s", DEST_DIR, fileName)
+	tmpFile := dstFile + ".tmp"
+
+	// テンポラリを作成して移動
+	if err := ioutil.WriteFile(tmpFile, []byte(html), 0644); err != nil {
+		panic(err)
+	}
+	if err := os.Rename(tmpFile, dstFile); err != nil {
+		panic(err)
+	}
 }
 
 func isIllegalArgs(args []string) bool {

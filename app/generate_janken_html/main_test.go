@@ -1,10 +1,17 @@
 package main
 
 import (
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
+
+func TestMain(t *testing.T) {
+	// エラーが出ないこと
+	os.Args = []string{"bin", "rock", "rock"}
+	main()
+}
 
 func TestIsIllegalArgs(t *testing.T) {
 	assert.Equal(t, false, isIllegalArgs([]string{"bin", "rock", "rock"}))
