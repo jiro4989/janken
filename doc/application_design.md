@@ -46,17 +46,18 @@ Webページに表示されるコンテンツを更新するアプリの設計�
 | /opt/janken/bin   | バイナリ           |
 | /opt/janken/shell | アプリ起動用シェル |
 | /opt/janken/conf  | アプリ設定ファイル |
+| /opt/janken/template | HTMLテンプレート |
 
 ## ログファイル
 
 ログはrsyslogにて管理。
 logrotateにより、七日以降のログは破棄。
 
-| パス                                  | 説明 |
-|---------------------------------------|------|
-| /var/log/janken/rock/rock.log         | グー |
-| /var/log/janken/paper/paper.log       | パー |
-| /var/log/janken/scissors/scissors.log | チョキ |
+| パス                                  | 説明   | ファシリティ |
+|---------------------------------------|--------|--------------|
+| /var/log/janken/rock/rock.log         | グー   | local0       |
+| /var/log/janken/paper/paper.log       | パー   | local1       |
+| /var/log/janken/scissors/scissors.log | チョキ | local2       |
 
 ## ロックファイル
 
