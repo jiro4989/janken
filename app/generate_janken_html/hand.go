@@ -13,6 +13,10 @@ const (
 	STATUS_LOSE
 	STATUS_SAME    // あいこ
 	STATUS_ILLEGAL // 不正
+	WIN_TEXT       = "あなたの勝ち組です"
+	LOSE_TEXT      = "あなたは負け犬です"
+	SAME_TEXT      = "あなたは勝っても負けてもいません"
+	ILLEGAL_TEXT   = "不正な入力は迷惑です"
 )
 
 func isHand(hand string) bool {
@@ -63,11 +67,11 @@ func winHand(userHand, enemyHand string) BattleStatus {
 func judgeText(status BattleStatus) string {
 	switch status {
 	case STATUS_WIN:
-		return "あなたの勝ち組です"
+		return WIN_TEXT
 	case STATUS_LOSE:
-		return "あなたは負け犬です"
+		return LOSE_TEXT
 	case STATUS_SAME:
-		return "あなたは勝っても負けてもいません"
+		return SAME_TEXT
 	}
-	return "不正な入力は迷惑です"
+	return ILLEGAL_TEXT
 }
