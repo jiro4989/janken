@@ -27,7 +27,7 @@ err() {
 
 init() {
   hand=$1
-  case "$hand"
+  case "$hand" in
     "rock")
       PRIORITY=$PRIORITY_ROCK
       LOCK_FILE=$LOCK_FILE_ROCK
