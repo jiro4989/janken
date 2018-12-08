@@ -20,7 +20,7 @@ if [ -e "$LOCK_FILE_STOP" ]; then
   exit 0
 fi
 
-trap 'rmdir "$LOCK_FILE"' ERR
+trap 'rmdir "$LOCK_FILE"' Exit
 
 mkdir "$LOCK_FILE"
 ret=$?
