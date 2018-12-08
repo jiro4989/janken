@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"html/template"
 	"io"
@@ -23,7 +24,8 @@ var (
 
 func init() {
 	var err error
-	logger, err = syslog.New(syslog.LOG_LOCAL1, "")
+	// 引数不正の場合にもログを出力したいので、初期値rockとしてロガーをセット
+	logger, err = syslog.New(syslog.LOG_LOCAL0, "")
 	if err != nil {
 		panic(err)
 	}
@@ -35,13 +37,18 @@ func main() {
 	start := time.Now()
 
 	if isIllegalArgs(args) {
-		msg := fmt.Sprintf("引数が不足 args=%v", args)
+		msg := fmt.Sprintf("引数が不正 args=%v", args)
 		logger.Err(msg)
 		os.Exit(1)
 	}
 
 	userHand := args[1]
 	enemyHand := args[2]
+
+	if err := setLogger(userHand); err != nil {
+		logger.Err(err.Error())
+		os.Exit(1)
+	}
 
 	status := winHand(userHand, enemyHand)
 	html, err := generateHTML(userHand, enemyHand, status, TEMPLATE_PATH)
@@ -102,4 +109,19 @@ func generateHTML(userHand, enemyHand string, status BattleStatus, templatePath 
 		return "", err
 	}
 	return buff.String(), nil
+}
+
+func setLogger(userHand string) error {
+	var err error
+	switch userHand {
+	case HAND_ROCK:
+		logger, err = syslog.New(syslog.LOG_LOCAL0, "")
+	case HAND_PAPER:
+		logger, err = syslog.New(syslog.LOG_LOCAL1, "")
+	case HAND_SCISSORS:
+		logger, err = syslog.New(syslog.LOG_LOCAL2, "")
+	default:
+		err = errors.New(fmt.Sprintf("userHandが不正 err=%s", userHand))
+	}
+	return err
 }
