@@ -1,6 +1,6 @@
 BIN := bin/generate_janken_html
 ifeq ($(ENV),prd)
-	TEMPLATE_PATH := "/opt/janken/template"
+	TEMPLATE_PATH := "/opt/janken/template/janken.html"
 	DEST_DIR := "/var/www/html/hand"
 	LDFLAGS := -ldflags=" \
 		-X \"main.TEMPLATE_PATH=$(TEMPLATE_PATH)\" \
