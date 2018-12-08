@@ -1,3 +1,4 @@
+BIN := bin/generate_janken_html
 ifeq ($(ENV),prd)
 	TEMPLATE_PATH := "/opt/janken/template"
 	DEST_DIR := "/var/www/html/hand"
@@ -7,10 +8,10 @@ ifeq ($(ENV),prd)
 		"
 endif
 
-bin/generate_janken_html: *.go
+build:
 	mkdir -p bin
-	go build -o $@ $(LDFLAGS) .
-	cp -p $@ ../bin/
+	go build -o $(BIN) $(LDFLAGS) .
+	cp -p $(BIN) ../bin/
 
 run: bin/generate_janken_html
 	$< rock paper
@@ -18,4 +19,4 @@ run: bin/generate_janken_html
 test: *.go
 	go test $(LDFLAGS) -cover
 
-.PHONY: test run
+.PHONY: test run build
