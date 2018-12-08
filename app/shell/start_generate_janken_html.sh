@@ -31,7 +31,7 @@ fi
 
 # アプリバイナリ起動 (メイン処理)
 enemy_hand=$(shuf -re rock paper scissors | head -n 1)
-/opt/janken/bin/generate_janken_html.sh "$user_hand" "$enemy_hand"
+/opt/janken/bin/generate_janken_html "$user_hand" "$enemy_hand"
 ret=$?
 if [ "$ret" -ne 0 ]; then
   err "HTML生成に失敗 exit=$ret"
