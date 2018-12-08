@@ -1,0 +1,26 @@
+@startuml
+
+skinparam {
+  defaultFontName Noto Sans CJK JP Regular
+}
+
+title Webページ表示までの処理の流れ
+
+      actor "一般ユーザ"  as user
+participant "Web Server"  as web_server
+participant "HTML"        as html
+participant "application" as application
+
+html <- application : じゃんけんの手をセットした\nhtmlの配置
+note right
+  applicationからの上書きは
+  webリクエストの有無にかかわらず毎秒更新する
+  (cron)
+end note
+
+user -> web_server : URLアクセス
+web_server -> html : htmlファイル取得
+web_server <- html : htmlファイル返却
+user <- web_server : html返却
+
+@enduml

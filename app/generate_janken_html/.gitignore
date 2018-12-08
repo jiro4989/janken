@@ -1,0 +1,5 @@
+bin/*
+html/*
+!bin/.gitkeep
+!html/.gitkeep
+/vendor/
